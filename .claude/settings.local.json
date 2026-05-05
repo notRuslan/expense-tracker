@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(docker exec expense-tracker-postgres *)",
+      "Bash(docker restart expense-tracker-postgres *)",
+      "Read(//tmp/**)",
+      "Bash(curl *)",
+      "Bash(grep -E \"\\\\.\\(json|js|ts|mjs\\)$\")",
+      "Bash(Start-Sleep -Seconds 8)",
+      "Bash(Get-Content \"C:\\\\Users\\\\Owner\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--projects-tests-claude-purple-basic-expence-tracker\\\\a39d88fc-8343-4c99-8024-57bd29ae93b9\\\\tasks\\\\b8kyy1qrs.output\" -Tail 30)"
+    ]
+  }
+}

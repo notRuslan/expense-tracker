@@ -1,0 +1,30 @@
+{
+  "name": "expense-tracker",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:frontend": "npm run dev --workspace apps/frontend",
+    "dev:backend": "npm run start:dev --workspace apps/backend",
+    "build": "npm run build --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down",
+    "db:logs": "docker compose logs -f postgres",
+    "prisma:generate": "npm run prisma:generate --workspace apps/backend",
+    "prisma:migrate": "npm run prisma:migrate --workspace apps/backend",
+    "prisma:studio": "npm run prisma:studio --workspace apps/backend"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "prettier": "^3.3.0",
+    "eslint": "^8.57.0",
+    "@types/node": "^20.14.0"
+  },
+  "engines": {
+    "node": ">=20.10.0"
+  }
+}
