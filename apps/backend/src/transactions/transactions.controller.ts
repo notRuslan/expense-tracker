@@ -43,7 +43,13 @@ export class TransactionsController {
   @Get()
   findAll(@CurrentUser() user: JwtUser, @Query() query: ListTransactionsQueryDto) {
     return this.queryBus.execute(
-      new GetTransactionsQuery(user.userId, query.month, query.year),
+      new GetTransactionsQuery(
+        user.userId,
+        query.month,
+        query.year,
+        query.page,
+        query.limit,
+      ),
     );
   }
 

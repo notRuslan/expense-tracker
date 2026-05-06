@@ -7,6 +7,12 @@ export class GetTransactionsHandler implements IQueryHandler<GetTransactionsQuer
   constructor(private readonly service: TransactionsService) {}
 
   execute(query: GetTransactionsQuery) {
-    return this.service.findAllByUser(query.userId, query.month, query.year);
+    return this.service.findAllByUser(
+      query.userId,
+      query.month,
+      query.year,
+      query.page,
+      query.limit,
+    );
   }
 }

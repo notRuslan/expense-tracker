@@ -31,9 +31,14 @@ export interface TransactionsSummary {
 export interface TransactionsListResponse {
   items: Transaction[];
   summary: TransactionsSummary;
+  total: number;
+  page: number;
+  limit: number;
 }
 
 export interface GetTransactionsFilter {
   month?: number;
   year?: number;
+  page?: number;
+  limit?: number;
 }

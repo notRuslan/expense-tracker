@@ -34,6 +34,8 @@ export class TransactionsService {
     userId: string,
     month?: number,
     year?: number,
+    page?: number,
+    limit?: number,
   ): Promise<TransactionsListResponse> {
     const where: Prisma.TransactionWhereInput = { userId };
     if (year !== undefined) {
@@ -45,8 +47,18 @@ export class TransactionsService {
       where.date = { gte, lt };
     }
 
-    const [rows, grouped] = await Promise.all([
-      this.prisma.transaction.findMany({ where, orderBy: { date: 'desc' } }),
+    const currentPage = page && page > 0 ? page : 1;
+    const currentLimit = limit && limit > 0 ? limit : 10;
+    const skip = (currentPage - 1) * currentLimit;
+
+    const [rows, total, grouped] = await Promise.all([
+      this.prisma.transaction.findMany({
+        where,
+        orderBy: { date: 'desc' },
+        skip,
+        take: currentLimit,
+      }),
+      this.prisma.transaction.count({ where }),
       this.prisma.transaction.groupBy({
         by: ['type'],
         where,
@@ -62,7 +74,13 @@ export class TransactionsService {
     }
     summary.balance = summary.totalIncome - summary.totalExpense;
 
-    return { items: rows.map(mapTransaction), summary };
+    return {
+      items: rows.map(mapTransaction),
+      summary,
+      total,
+      page: currentPage,
+      limit: currentLimit,
+    };
   }
 
   async findOneByUser(id: string, userId: string): Promise<Transaction> {
