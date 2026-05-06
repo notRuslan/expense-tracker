@@ -89,6 +89,46 @@ npm run lint
 
 Целевая ОС разработки — Windows (PowerShell). Для скриптов в `package.json` используйте кросс-платформенный синтаксис; не полагайтесь на bash-онли конструкции в npm-скриптах.
 
+## Работа с ветками (GitHub Flow)
+
+Используем [GitHub Flow](https://docs.github.com/en/get-started/using-github/github-flow).
+
+**Основные правила:**
+
+- `main` — всегда стабильная ветка. Прямые коммиты в `main` запрещены.
+- Любая работа ведётся в отдельной ветке, создаваемой от `main`.
+- Название ветки: `feature/<slug>`, `fix/<slug>`, `chore/<slug>` — по типу изменения.
+- Когда ветка готова — открывается Pull Request в `main`.
+- После ревью и прохождения CI — мёрж в `main` (squash или merge commit по договорённости).
+- После мёржа ветка удаляется.
+
+**Именование веток:**
+
+| Тип изменения | Префикс | Пример |
+|---|---|---|
+| Новая функциональность | `feature/` | `feature/dashboard` |
+| Исправление бага | `fix/` | `fix/auth-token-refresh` |
+| Служебные изменения | `chore/` | `chore/update-deps` |
+| Документация | `docs/` | `docs/api-reference` |
+
+**Текущие активные ветки:**
+
+- `feature/dashboard` — главный экран (список транзакций, сводка)
+
+**Команды:**
+
+```bash
+# Создать ветку от свежего main
+git checkout main && git pull && git checkout -b feature/<slug>
+
+# Опубликовать ветку
+git push -u origin feature/<slug>
+
+# Удалить ветку после мёржа
+git branch -d feature/<slug>
+git push origin --delete feature/<slug>
+```
+
 ## Соглашение о коммитах
 
 Используем [Conventional Commits](https://www.conventionalcommits.org/ru/v1.0.0/).
