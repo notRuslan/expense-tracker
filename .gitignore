@@ -39,3 +39,6 @@ coverage/
 pgdata/
 
 .idea/
+
+# project memory
+.memory/
