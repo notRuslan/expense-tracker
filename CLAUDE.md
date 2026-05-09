@@ -81,3 +81,9 @@ refactor(backend)!: replace ExpensesModule with TransactionsModule
 chore(deps): bump @nestjs/cqrs to 10.2.7
 docs(claude): document commit conventions
 ```
+
+
+## Документация
+После изменения методов — обновляй JSDoc.
+Для DTO и контроллеров — добавляй/обновляй Swagger декораторы.
+
