@@ -2,7 +2,16 @@ import { ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsInt, IsOptional, Max, Min } from 'class-validator';
 
+/**
+ * Query-параметры эндпоинта `GET /transactions`.
+ *
+ * Семантика фильтра в {@link GetTransactionsQuery}:
+ * без параметров — все транзакции; только `year` — за весь год;
+ * `month` + `year` — за конкретный месяц года.
+ * `month` без `year` игнорируется хэндлером.
+ */
 export class ListTransactionsQueryDto {
+  /** Номер месяца (1–12). Имеет смысл только вместе с `year`. */
   @ApiPropertyOptional({ example: 5, minimum: 1, maximum: 12 })
   @IsOptional()
   @Type(() => Number)
@@ -11,6 +20,7 @@ export class ListTransactionsQueryDto {
   @Max(12)
   month?: number;
 
+  /** Год в диапазоне 1970–9999. */
   @ApiPropertyOptional({ example: 2026, minimum: 1970, maximum: 9999 })
   @IsOptional()
   @Type(() => Number)

@@ -10,6 +10,20 @@ import { DeleteTransactionHandler } from './commands/delete-transaction.handler'
 import { GetTransactionsHandler } from './queries/get-transactions.handler';
 import { GetTransactionByIdHandler } from './queries/get-transaction-by-id.handler';
 
+/**
+ * Доменный модуль «Транзакции».
+ *
+ * Регистрирует контроллер `/transactions`, фасад-сервис
+ * и все CQRS-хэндлеры (без явной регистрации в `providers`
+ * `@nestjs/cqrs` их не обнаружит).
+ *
+ * Зависимости:
+ * - `CqrsModule` — `CommandBus` и `QueryBus`.
+ * - `AuthModule` — `JwtAuthGuard` и стратегия JWT.
+ * - `UsersModule` — `GetUserByIdQuery` для проверки существования пользователя в хэндлерах команд.
+ *
+ * `PrismaService` доступен через глобальный `PrismaModule`.
+ */
 @Module({
   imports: [CqrsModule, AuthModule, UsersModule],
   controllers: [TransactionsController],
